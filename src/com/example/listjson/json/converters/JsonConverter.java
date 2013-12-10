@@ -1,10 +1,10 @@
-package com.example.listjson;
+package com.example.listjson.json.converters;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public interface JsonConverter<T> {
 
-	T convert(JSONObject reader) throws JSONException;
+	T convert(JSONObject object) throws JSONException;
 
 }

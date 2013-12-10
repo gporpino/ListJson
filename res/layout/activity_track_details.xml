@@ -3,11 +3,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" android:baselineAligned="false">
 
-    <fragment android:name="com.example.listjson.fragments.ListTracksFragment"
-              android:id="@+id/tracks_fragment"
+     <fragment android:name="com.example.listjson.fragments.TrackDetailsFragment"
+              android:id="@+id/details_fragment"
               
-              android:layout_width="match_parent" 
-              android:layout_height="match_parent" />
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"/>
 
    
 </LinearLayout>

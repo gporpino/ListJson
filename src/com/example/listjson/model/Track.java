@@ -1,14 +1,21 @@
 package com.example.listjson.model;
 
+import java.util.List;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Track implements Parcelable {
+
+	private String id;
+
 	private String name;
 	private Integer duration;
 	private Integer playcount;
 
 	private Artist artist;
+
+	private List<ImageInfo> images;
 
 	private Track(Parcel in) {
 		name = in.readString();
@@ -69,6 +76,8 @@ public class Track implements Parcelable {
 		dest.writeInt(duration);
 		dest.writeInt(playcount);
 		dest.writeSerializable(artist);
+		dest.writeParcelableArray(images.toArray(new ImageInfo[images.size()]),
+				Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
 
 	}
 
@@ -83,4 +92,29 @@ public class Track implements Parcelable {
 			return new Track[size];
 		}
 	};
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public List<ImageInfo> getImages() {
+		return images;
+	}
+
+	public void setImages(List<ImageInfo> images) {
+		this.images = images;
+	}
+
+	public ImageInfo getImageInfo(ImageSize size) {
+		for (ImageInfo info : images) {
+			if (info.getSize() == size) {
+				return info;
+			}
+		}
+		return null;
+	}
 }

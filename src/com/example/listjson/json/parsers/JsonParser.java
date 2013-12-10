@@ -1,4 +1,4 @@
-package com.example.listjson;
+package com.example.listjson.json.parsers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +9,8 @@ import java.net.URL;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.example.listjson.json.converters.JsonConverter;
 
 public class JsonParser<T> {
 
