@@ -109,12 +109,20 @@ public class Track implements Parcelable {
 		this.images = images;
 	}
 
-	public ImageInfo getImageInfo(ImageSize size) {
-		for (ImageInfo info : images) {
-			if (info.getSize() == size) {
-				return info;
+	public ImageInfo getSmallestImageInfo() {
+		ImageInfo smallest = null;
+		int smallestOrder = ImageSize.values().length + 1;
+
+		if (images != null) {
+
+			for (ImageInfo info : images) {
+				if (info.getSize().ordinal() < smallestOrder) {
+					smallest = info;
+					smallestOrder = info.getSize().ordinal();
+				}
 			}
+
 		}
-		return null;
+		return smallest;
 	}
 }

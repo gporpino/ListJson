@@ -31,7 +31,7 @@ import android.widget.TextView;
 import com.example.listjson.R;
 import com.example.listjson.json.converters.TracksJsonConverter;
 import com.example.listjson.json.parsers.JsonParser;
-import com.example.listjson.model.ImageSize;
+import com.example.listjson.model.ImageInfo;
 import com.example.listjson.model.Track;
 
 public class ListTracksFragment extends ListFragment implements
@@ -83,16 +83,17 @@ public class ListTracksFragment extends ListFragment implements
 
 				ImageView imageView = (ImageView) rowView
 						.findViewById(R.id.item_icon);
-
 				TextView textView = (TextView) rowView
 						.findViewById(R.id.item_content);
 
 				Track track = getItem(position);
 
-				new DownloadImageTask(imageView).execute(track.getImageInfo(
-						ImageSize.SMALL).getUrl());
-
 				textView.setText(track.getName());
+
+				ImageInfo info = track.getSmallestImageInfo();
+				if (info != null) {
+					new DownloadImageTask(imageView).execute(info.getUrl());
+				}
 
 				return rowView;
 			};
