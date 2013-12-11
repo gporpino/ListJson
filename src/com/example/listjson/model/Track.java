@@ -125,4 +125,21 @@ public class Track implements Parcelable {
 		}
 		return smallest;
 	}
+
+	public ImageInfo getBiggestImageInfo() {
+		ImageInfo biggest = null;
+		int biggestOrder = -1;
+
+		if (images != null) {
+
+			for (ImageInfo info : images) {
+				if (info.getSize().ordinal() > biggestOrder) {
+					biggest = info;
+					biggestOrder = info.getSize().ordinal();
+				}
+			}
+
+		}
+		return biggest;
+	}
 }

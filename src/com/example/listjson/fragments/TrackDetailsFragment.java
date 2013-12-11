@@ -18,13 +18,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.listjson.R;
 import com.example.listjson.json.converters.TrackJsonConverter;
 import com.example.listjson.json.parsers.JsonParser;
+import com.example.listjson.model.ImageInfo;
 import com.example.listjson.model.Track;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class TrackDetailsFragment extends Fragment implements
 		LoaderCallbacks<Track> {
@@ -41,16 +46,34 @@ public class TrackDetailsFragment extends Fragment implements
 
 	private String currentTrackId;
 
+	private DisplayImageOptions displayImageOptions;
+
+	public static Fragment newInstance(String trackId) {
+		Bundle args = new Bundle();
+		args.putString(TRACK_ID, trackId);
+		Fragment f = new TrackDetailsFragment();
+		f.setArguments(args);
+		return f;
+	}
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+
+		displayImageOptions = new DisplayImageOptions.Builder().cacheInMemory(
+				true).build();
+
+		ImageLoaderConfiguration config = ImageLoaderConfiguration
+				.createDefault(getActivity());
+
+		ImageLoader.getInstance().init(config);
 
 		configAnimatorForLoadingView();
 
 		contentView.animate().alpha(0f).setDuration(mShortAnimationDuration);
 		loadingView.animate().alpha(0f).setDuration(mShortAnimationDuration);
 
-		Bundle extras = getActivity().getIntent().getExtras();
+		Bundle extras = getArguments();
 
 		if (extras == null) {
 			return;
@@ -143,14 +166,31 @@ public class TrackDetailsFragment extends Fragment implements
 
 		contentView.setVisibility(ListView.VISIBLE);
 
+		if (result == null) {
+			return;
+		}
+
 		TextView trackNameTextView = (TextView) contentView
 				.findViewById(R.id.track_name);
 		trackNameTextView.setText(result.getName());
 
-		TextView trackArtistNameTextView = (TextView) contentView
-				.findViewById(R.id.track_artist_name);
-		trackArtistNameTextView.setText(result.getArtist().getName());
+		if (result.getArtist() != null) {
+			TextView trackArtistNameTextView = (TextView) contentView
+					.findViewById(R.id.track_artist_name);
+			trackArtistNameTextView.setText(result.getArtist().getName());
+		}
 
+		ImageView imageView = (ImageView) contentView
+				.findViewById(R.id.track_album_image);
+
+		imageView.setImageResource(R.drawable.no_photo);
+
+		ImageInfo info = result.getBiggestImageInfo();
+		if (info != null) {
+
+			ImageLoader.getInstance().displayImage(info.getUrl(), imageView,
+					displayImageOptions);
+		}
 	}
 
 	@Override

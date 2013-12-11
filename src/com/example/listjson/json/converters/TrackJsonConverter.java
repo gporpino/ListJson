@@ -14,6 +14,8 @@ import com.example.listjson.model.Track;
 
 public class TrackJsonConverter implements JsonConverter<Track> {
 
+	private static final String JSON_ATTRIBUTE_ALBUM = "album";
+	private static final String JSON_ATTRIBUTE_IMAGE = "image";
 	private static final String JSON_ATTRIBUTE_ARTIST = "artist";
 	private static final String JSON_ATTRIBUTE_ID = "mbid";
 	private static final String JSON_ATTRIBUTE_NAME = "name";
@@ -42,18 +44,21 @@ public class TrackJsonConverter implements JsonConverter<Track> {
 		track.setName(trackJson.getString(JSON_ATTRIBUTE_NAME));
 		track.setDuration(trackJson.getInt(JSON_ATTRIBUTE_DURATION));
 		track.setPlaycount(trackJson.getInt(JSON_ATTRIBUTE_PLAYCOUNT));
-		try {
+
+		if (trackJson.has(JSON_ATTRIBUTE_ARTIST)) {
 			track.setArtist(parseArtist(trackJson
 					.getJSONObject(JSON_ATTRIBUTE_ARTIST)));
-		} catch (JSONException e) {
-			track.setArtist(null);
 		}
 
-		try {
-			track.setImages(parseImages(trackJson.getJSONArray("image")));
-		} catch (JSONException e) {
-			track.setImages(null);
+		if (trackJson.has(JSON_ATTRIBUTE_IMAGE)) {
+			track.setImages(parseImages(trackJson
+					.getJSONArray(JSON_ATTRIBUTE_IMAGE)));
+		} else if (trackJson.has(JSON_ATTRIBUTE_ALBUM)) {
+			JSONObject album = trackJson.getJSONObject(JSON_ATTRIBUTE_ALBUM);
+			track.setImages(parseImages(album
+					.getJSONArray(JSON_ATTRIBUTE_IMAGE)));
 		}
+
 		return track;
 	}
 

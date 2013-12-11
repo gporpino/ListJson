@@ -1,19 +1,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" android:baselineAligned="false">
+    android:layout_height="fill_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
 
-    <fragment android:name="com.example.listjson.fragments.ListTracksFragment"
-              android:id="@+id/tracks_fragment"
-              android:layout_weight=".3"
-              android:layout_width="200dp"
-              android:layout_marginLeft="1dp" 
-              android:layout_height="match_parent" />
+    <fragment
+        android:id="@+id/tracks_fragment"
+        android:name="com.example.listjson.fragments.ListTracksFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
-    <fragment android:name="com.example.listjson.fragments.TrackDetailsFragment"
-              android:id="@+id/details_fragment"
-              android:layout_weight=".7"
-              android:layout_width="0dp"
-              android:layout_height="match_parent"/>
+    <fragment
+        android:id="@+id/details_fragment"
+        android:name="com.example.listjson.fragments.TrackDetailsFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3" />
 
 </LinearLayout>

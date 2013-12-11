@@ -1,13 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" android:baselineAligned="false">
+    android:layout_height="fill_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
 
-    <fragment android:name="com.example.listjson.fragments.ListTracksFragment"
-              android:id="@+id/tracks_fragment"
-              
-              android:layout_width="match_parent" 
-              android:layout_height="match_parent" />
+    <fragment
+        android:id="@+id/tracks_fragment"
+        android:name="com.example.listjson.fragments.ListTracksFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-   
 </LinearLayout>

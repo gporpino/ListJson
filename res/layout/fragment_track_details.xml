@@ -1,45 +1,72 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    
     xmlns:tools="http://schemas.android.com/tools"
-    
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
-    
-    
-    <TableLayout
+    <RelativeLayout
         android:id="@android:id/content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-    	<TableRow >
-    	    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Track Descriptions:" android:textSize="10pt"  />
-    	</TableRow>    
-        <TableRow >
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Name: " />
-            <TextView android:id="@+id/track_name" android:layout_width="match_parent" android:layout_height="match_parent" />
-        </TableRow>
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp" >
+
+        <TextView
+            android:id="@android:id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Track Descriptions:"
+            
+            android:textSize="10pt" />
+
+        <TextView
+            android:id="@+id/label:name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@android:id/title"
+            android:layout_alignParentLeft="true"
+            android:text="Name: " />
+
+        <TextView
+            android:id="@+id/track:name"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@android:id/title"
+            android:layout_toLeftOf="@id/label:name" />
+
         
-     	<TableRow >
-     	    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Artist: " />
-     		<TextView android:id="@+id/track_artist_name" android:layout_width="match_parent"  android:layout_height="match_parent"/>   
-        </TableRow>
-    </TableLayout>
-    
+        <TextView
+            android:id="@+id/label:artist_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@android:id/title"
+            android:layout_toLeftOf="@id/track:name"
+            android:text="Artist: " />
+
+        <TextView
+            android:id="@+id/track:artist_name"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@android:id/title"
+            android:layout_toLeftOf="@id/label:artist_name"
+             />
+
+        <ImageView
+            android:id="@+id/track:album_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="Image of Track" 
+            android:layout_below="@id/label:name"
+            />
+    </RelativeLayout>
 
     <ImageView
-        
         android:id="@+id/detail:loading_spinner"
-        android:src="@drawable/ic_launcher"
-        
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        
         android:layout_gravity="center"
-         
-        android:contentDescription="@string/loading" />
-    
-   
+        android:contentDescription="@string/loading"
+        android:src="@drawable/ic_launcher" />
 
 </FrameLayout>
